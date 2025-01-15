@@ -88,7 +88,7 @@ async function sendWhatsAppMessage(medication) {
 console.log("Medication reminder service started...");
 //subscribeToMedications();
 
-async function sendWhatsAppMessage(medication) {
+async function sendWhatsAppMessageTest() {
   try {
     const messageBody = `WHY THIS IS NOT WORKIN`;
     const message = await twilio.messages.create({
@@ -102,4 +102,4 @@ async function sendWhatsAppMessage(medication) {
   }
 }
 
-sendWhatsAppMessage();
+sendWhatsAppMessageTest();
