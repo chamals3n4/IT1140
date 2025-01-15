@@ -66,10 +66,10 @@ const subscribeToMedications = async () => {
 };
 
 // run checkMedications every minute
-cron.schedule("* * * * *", () => {
-  console.log("Cron job triggered: Checking medications...");
-  checkMedications();
-});
+// cron.schedule("* * * * *", () => {
+//   console.log("Cron job triggered: Checking medications...");
+//   checkMedications();
+// });
 
 async function sendWhatsAppMessage(medication) {
   try {
@@ -86,4 +86,20 @@ async function sendWhatsAppMessage(medication) {
 }
 
 console.log("Medication reminder service started...");
-subscribeToMedications();
+//subscribeToMedications();
+
+async function sendWhatsAppMessage(medication) {
+  try {
+    const messageBody = `WHY THIS IS NOT WORKIN`;
+    const message = await twilio.messages.create({
+      body: messageBody,
+      from: `whatsapp:${whatsappNum}`,
+      to: "whatsapp:+94717110160",
+    });
+    console.log(`Message sent: ${message.sid}`);
+  } catch (error) {
+    console.error(`Error sending message: ${error.message}`);
+  }
+}
+
+sendWhatsAppMessage();
