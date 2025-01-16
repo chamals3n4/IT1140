@@ -16,6 +16,8 @@ import {
 import { cn } from "../lib/utils";
 import { Button } from "@/components/ui/button";
 import LoGo from "../assets/images/Logo.webp";
+import bodysqllogo from "../assets/images/bodysql-logo.png";
+import github from "../assets/images/github.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -64,10 +66,14 @@ function Dashboard() {
         )}
       >
         {/* Sidebar Header */}
-        <div className="border-b border-blue-500 bg-white text-black px-3 py-2">
+        <div className="border-b border-blue-500 bg-white text-black px-3 py-2 mb-3">
           <Link to="/">
             <div className="flex h-12 items-center justify-left">
-              <img src={LoGo} className="w-[200px]" alt="BodySQL Logo" />
+              <img
+                src={bodysqllogo}
+                className="w-[200px] pb-5"
+                alt="BodySQL Logo"
+              />
             </div>
           </Link>
         </div>
@@ -108,40 +114,42 @@ function Dashboard() {
           <div className="flex h-16 items-center justify-between px-4">
             <div>{/*  */}</div>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                  />
-                  <AvatarFallback>UN</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => {
-                    /* Navigate to Profile */
-                  }}
-                >
-                  Contribute
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    /* Navigate to Settings */
-                  }}
-                >
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    handleLogout();
-                  }}
-                >
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center space-x-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>UN</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={() => {
+                      /* Navigate to Profile */
+                    }}
+                  >
+                    Contribute
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      /* Navigate to Settings */
+                    }}
+                  >
+                    Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      handleLogout();
+                    }}
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </div>
         <div className="flex-1 overflow-auto">
