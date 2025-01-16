@@ -13,7 +13,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // TWILIO CONFIG
 const ACCSID = process.env.TWILIO_ACC_SID;
 const AUTHTOKEN = process.env.TWILIO_AUTH_TOKEN;
-const client = twilio(ACCSID, AUTHTOKEN);
+const twilio = twilio(ACCSID, AUTHTOKEN);
 
 const whatsappNum = process.env.TWILIO_WHATSAPP_NUM;
 
