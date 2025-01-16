@@ -1,10 +1,19 @@
 import dotenv from "dotenv";
 import cron from "node-cron";
-import twilio from "./config/twilio.js";
-import supabase from "./config/supabase.js";
-
+import { createClient } from "@supabase/supabase-js";
+import twilio from "twilio";
 import { zonedTimeToUtc, utcToZonedTime, format } from "date-fns-tz";
 dotenv.config();
+
+// SUPABASE CONFIG
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// TWILIO CONFIG
+const ACCSID = process.env.TWILIO_ACC_SID;
+const AUTHTOKEN = process.env.TWILIO_AUTH_TOKEN;
+const client = twilio(ACCSID, AUTHTOKEN);
 
 const whatsappNum = process.env.TWILIO_WHATSAPP_NUM;
 
@@ -65,7 +74,7 @@ const subscribeToMedications = async () => {
     });
 };
 
-// run checkMedications every minute
+//run checkMedications every minute
 // cron.schedule("* * * * *", () => {
 //   console.log("Cron job triggered: Checking medications...");
 //   checkMedications();
@@ -85,12 +94,9 @@ async function sendWhatsAppMessage(medication) {
   }
 }
 
-console.log("Medication reminder service started...");
-//subscribeToMedications();
-
-async function sendWhatsAppMessageTest() {
+async function sendTestWhatsAppMessage() {
   try {
-    const messageBody = `WHY THIS IS NOT WORKIN`;
+    const messageBody = `to aluth crush eka - i lost my self in loving you 🥺`;
     const message = await twilio.messages.create({
       body: messageBody,
       from: `whatsapp:${whatsappNum}`,
@@ -102,4 +108,8 @@ async function sendWhatsAppMessageTest() {
   }
 }
 
-sendWhatsAppMessageTest();
+console.log("Medication reminder service started...");
+//subscribeToMedications();
+
+//sendWhatsAppMessage();
+sendTestWhatsAppMessage();
