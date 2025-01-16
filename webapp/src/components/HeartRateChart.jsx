@@ -18,6 +18,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import supabase from "@/config/supabase";
+import { useEffect, useState } from "react";
 
 const generateMockData = () => {
   const data = [];
@@ -38,6 +40,30 @@ const generateMockData = () => {
 };
 
 export function HeartRateChart() {
+  const [bpmData, setBpmData] = useState([]);
+
+  useEffect(() => {
+    async function fetchMedications() {
+      try {
+        const { data, error } = await supabase
+          .from("bpm_readings")
+          .select("bpm");
+        // .order("time", { ascending: true });
+
+        if (error) {
+          console.error("Error fetching BPM data:", error);
+          return;
+        }
+
+        setBpmData(data);
+      } catch (error) {
+        console.error("Error fetching BPM data:", error);
+      }
+    }
+
+    fetchMedications();
+  }, []);
+
   return (
     <Card>
       <CardHeader>
@@ -59,7 +85,7 @@ export function HeartRateChart() {
             height="100%"
             style={{ padding: "0 20px" }}
           >
-            <LineChart data={generateMockData()}>
+            <LineChart data={bpmData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="time"

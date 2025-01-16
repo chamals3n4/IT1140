@@ -1,0 +1,19 @@
+{
+  "name": "bpm-reminder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@mistralai/mistralai": "^1.3.6",
+    "@supabase/supabase-js": "^2.47.14",
+    "dotenv": "^16.4.7",
+    "twilio": "^5.4.2"
+  }
+}
