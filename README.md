@@ -2,7 +2,7 @@
 
 BodySQL is a healthcare monitoring and management system that built for Fundamental of Computing(IT1140) Mini Project Assignment.
 
-![High Level Diagram](/docs/diagram-new.png)
+![High Level Diagram](./docs/diagram-new.png)
 
 ## How It Works:
 
