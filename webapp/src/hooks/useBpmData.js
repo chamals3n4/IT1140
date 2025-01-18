@@ -1,9 +1,8 @@
-// Hook for Fetching and Real-Time Updates
 import { useState, useEffect } from "react";
 import {
-  fetchInitData,
-  subscribeToRealtimeUpdates,
-} from "@/supabase/fetchMedicationRoutings";
+  fetchInitPulseData,
+  subscribeToRealtimeUpdatesPulse,
+} from "@/supabase/fetch-pulse-data";
 import supabase from "@/config/supabase";
 
 export const useBpmData = () => {
@@ -11,19 +10,20 @@ export const useBpmData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchInitData();
+      const data = await fetchInitPulseData();
       setBpmData(data);
     };
 
     fetchData();
 
-    const subscription = subscribeToRealtimeUpdates((newData) => {
+    const subscription = subscribeToRealtimeUpdatesPulse((newData) => {
       console.log("New data received:", newData);
       setBpmData((prevData) => [newData, ...prevData]);
     });
 
     return () => {
-      supabase.removeChannel(subscription);
+      // Unsubscribe on cleanup
+      if (subscription) supabase.removeChannel(subscription);
     };
   }, []);
 

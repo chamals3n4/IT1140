@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useBpmData } from "@/hooks/useBpmData";
+import { useMedication } from "@/hooks/useMedication";
 import { useState, useEffect } from "react";
 import supabase from "@/config/supabase";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -25,23 +26,23 @@ import choreo from "../assets/images/icons/choreo-by-wso2.png";
 import twilio from "../assets/images/icons/twilio.png";
 import tailwind from "../assets/images/icons/tailwind.png";
 
-const activities = [
-  {
-    name: "Activity 1",
-    description: "Description for activity 1",
-    time: "2h ago",
-  },
-  {
-    name: "Activity 2",
-    description: "Description for activity 2",
-    time: "2h ago",
-  },
-  {
-    name: "Activity 3",
-    description: "Description for activity 3",
-    time: "2h ago",
-  },
-];
+// const activities = [
+//   {
+//     name: "Activity 1",
+//     description: "Description for activity 1",
+//     time: "2h ago",
+//   },
+//   {
+//     name: "Activity 2",
+//     description: "Description for activity 2",
+//     time: "2h ago",
+//   },
+//   {
+//     name: "Activity 3",
+//     description: "Description for activity 3",
+//     time: "2h ago",
+//   },
+// ];
 
 const techStack = [
   { name: "Supabase", icon: supabaseLogo },
@@ -57,7 +58,12 @@ const techStack = [
 
 export default function Home() {
   const bpmData = useBpmData();
+  const routineData = useMedication();
 
+  const now = new Date();
+  const formattedDate = now.toISOString().split("T")[0];
+  const formattedTime = now.toTimeString().split(" ")[0];
+  const formattedDateTime = `${formattedDate} ${formattedTime}`;
   const stats = [
     {
       name: "Latest Pulse Reading",
@@ -71,17 +77,22 @@ export default function Home() {
     },
     {
       name: "Next Dosage",
-      value: "fef",
+      value:
+        routineData.length > 0 ? (
+          `${routineData[0].medication_name} -  ${routineData[0].time}`
+        ) : (
+          <Skeleton className="h-6 w-[200px]" />
+        ),
       change: "+20.1% from last month",
     },
     {
-      name: "Health Status Summary",
+      name: "Tip of th Day",
       value: "Normal",
       change: "+20.1% from last month",
     },
     {
-      name: "Data Uptime or Reliability",
-      value: "+467",
+      name: "Data and Time",
+      value: formattedDateTime,
       change: "+20.1% from last month",
     },
   ];
@@ -95,18 +106,23 @@ export default function Home() {
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card className="border-bgsidebar" key={stat.name}>
+          <Card
+            className={`border-bgsidebar ${
+              stat.name === "Data and Time" ? "bg-green-100" : ""
+            }`}
+            key={stat.name}
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{stat.name}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>
-              <Badge
+              {/* <Badge
                 className="mt-2"
                 variant={stat.change.includes("-") ? "destructive" : "success"}
               >
                 {stat.change}
-              </Badge>
+              </Badge> */}
             </CardContent>
           </Card>
         ))}

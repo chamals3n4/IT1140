@@ -49,7 +49,7 @@ const mistralResponse = async () => {
         role: "user",
         content: `According to this BPM data, you need to give some insights about each data in this JSON ${JSON.stringify(
           bpmdata
-        )}. he ourput should be a frinedly message and should be less that 500 charactors,no need big explanation`,
+        )}. the ourput should be a frinedly message and should be less that 500 charactors,no need big explanation but dont add more short explanations also, you should give some advice for to the user that can tak`,
       },
     ],
   });

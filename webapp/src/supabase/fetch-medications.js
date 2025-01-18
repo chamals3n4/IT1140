@@ -1,8 +1,8 @@
 import supabase from "@/config/supabase";
 
-export const fetchInitData = async () => {
+export const fetchInitDataMedi = async () => {
   let { data, error } = await supabase
-    .from("bpm_readings")
+    .from("medications")
     .select("*")
     .order("created_at", { ascending: false });
 
@@ -13,9 +13,9 @@ export const fetchInitData = async () => {
   return data;
 };
 
-export const subscribeToRealtimeUpdates = (callback) => {
+export const subscribeToRealtimeUpdatesMedi = (callback) => {
   return supabase
-    .channel("bpm_readings")
+    .channel("medications")
     .on(
       "postgres_changes",
       { event: "INSERT", schema: "public", table: "bpm_readings" },

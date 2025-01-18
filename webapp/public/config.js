@@ -1,5 +1,5 @@
 window.configs = {
-  supabaseUrl: "SUPABASEURL",
-  supabaseKey: "SUPABASEANONKEY",
-  mistralApiKey: "MISTRALAPIKEY",
+  supabaseUrl: "SUS",
+  supabaseKey: "SUS2",
+  mistralApiKey: "SUS3",
 };
