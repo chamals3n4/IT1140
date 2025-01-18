@@ -41,13 +41,30 @@ You will need to install and configure the following dependencies on your machin
 
 ## Run Locally
 
+This repository is structured as follows:
+
+IT1140-P22
+├── docs # Documentation related to the project
+│ ├── proposal  
+│ ├── diagrams  
+│ └── presentation  
+├── hardware # All Arduino and hardware-related files
+│ ├── ino  
+│  
+├── schedule-tasks # Task scheduling scripts and logic
+│ ├── bpm-reminder # Scripts for BPM (heart rate) reminders
+│ └── medication-reminder # Scripts for medication reminders
+└── webapp # Web application code
+
 First forked this project and clone it in to your machine
 
 ```bash
   git clone https://github.com/<github_username>/IT1140-P22
 ```
 
-Go to the project directory
+1. Web app setup
+
+Go to the webapp directory
 
 ```bash
   cd IT1140-P22/webapp
@@ -59,16 +76,76 @@ Install dependencies
   npm install
 ```
 
-Install dependencies
+To run this webapp, you will need to add the following environment variables to your public/config.js file
 
-To run this project, you will need to add the following environment variables to your .env file
+```JS
+window.configs = {
+  supabaseUrl: "Your Supabase URL",
+  supabaseKey: "Your Supabase Anon key",
+  mistralApiKey: "Mistral PAI",
+};
+```
 
-`VITE_SUPABASE_URL`
-`VITE_SUPABASE_KEY`
-`VITE_MISTRAL_API_KEY`
+first you need to create a supabase project, get the apikey,url and create these tables
+
+```SQL
+-- Table: health_conditions
+CREATE TABLE health_conditions (
+    id SERIAL PRIMARY KEY,        -- Unique ID for the health condition
+    created_at TIMESTAMPTZ DEFAULT NOW(), -- Timestamp of creation
+    condition_name TEXT NOT NULL  -- Name of the health condition
+);
+
+-- Table: bpm_readings
+CREATE TABLE bpm_readings (
+    id SERIAL PRIMARY KEY,        -- Unique ID for the reading
+    created_at TIMESTAMPTZ DEFAULT NOW(), -- Timestamp of the reading
+    bpm INT NOT NULL              -- Beats per minute value
+);
+
+-- Table: medications
+CREATE TABLE medications (
+    id SERIAL PRIMARY KEY,        -- Unique ID for the medication entry
+    created_at TIMESTAMPTZ DEFAULT NOW(), -- Timestamp of creation
+    medication_name TEXT NOT NULL, -- Name of the medication
+    dosage TEXT NOT NULL,         -- Dosage instructions
+    frequency TEXT NOT NULL,      -- Frequency of the medication
+    start_date DATE NOT NULL,     -- Start date for the medication
+    end_date DATE,                -- End date for the medication (optional)
+    condition_id INT REFERENCES health_conditions(id) ON DELETE SET NULL, -- Foreign key to health_conditions
+    time TIME NOT NULL,           -- Time to take the medication
+    condition_name TEXT           -- Name of the associated condition (redundant if using condition_id)
+);
+
+```
+
+second things is you need to get a API Key from Mistral AI, go to the console.mistral.ai url and obtain a API key/
 
 Start the server
 
 ```bash
   npm run dev
 ```
+
+2. BPM Reminder
+
+Go to the schedule-task/bpm-reminder directory
+
+```bash
+  cd schedule-task/bpm-reminder directory
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+create a `.env` file and add those values
+`VITE_SUPABASE_URL`
+`VITE_SUPABASE_KEY`
+`VITE_MISTRAL_API_KEY`
+
+3. Medication Reminder
+
+do the same steps in 2. BPM Reminder
