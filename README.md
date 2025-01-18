@@ -49,8 +49,7 @@ IT1140-P22
 │ ├── diagrams  
 │ └── presentation  
 ├── hardware # All Arduino and hardware-related files
-│ ├── ino  
-│  
+│ └── ino  
 ├── schedule-tasks # Task scheduling scripts and logic
 │ ├── bpm-reminder # Scripts for BPM (heart rate) reminders
 │ └── medication-reminder # Scripts for medication reminders
