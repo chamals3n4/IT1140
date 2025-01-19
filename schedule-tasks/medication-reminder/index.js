@@ -112,7 +112,11 @@ async function sendTestWhatsAppMessage() {
   }
 }
 
+<<<<<<< HEAD
 //  cron job to run checkMedications every minute
+=======
+//cron job to run checkMedications every minute
+>>>>>>> 07755943222c6d43c5c0117c09ff76d02fd0ce37
 cron.schedule("* * * * *", () => {
   console.log("Cron job triggered: Checking medications...");
   checkMedications();
