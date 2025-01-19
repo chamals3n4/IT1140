@@ -25,7 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Navigate } from "react-router-dom";
+import chillguy from "../assets/images/chillguy.jpg";
 
 const menuItems = [
   { icon: ChartNoAxesGantt, label: "Overview", to: "/" },
@@ -118,10 +118,7 @@ function Dashboard() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="cursor-pointer">
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
-                    />
+                    <AvatarImage src={chillguy} alt="@shadcn" />
                     <AvatarFallback>UN</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>

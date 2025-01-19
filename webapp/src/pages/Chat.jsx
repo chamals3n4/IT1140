@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot, Send, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import mistral from "@/config/mistral";
+import chillguy from "../assets/images/chillguy.jpg";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -54,11 +55,7 @@ export default function Chat() {
             <div className="flex flex-col items-center p-10 justify-center h-full text-center">
               <div className="mb-6">
                 <Avatar className="h-24 w-24">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                    draggable="false"
-                  />
+                  <AvatarImage src={chillguy} alt="@shadcn" draggable="false" />
                   <AvatarFallback>MC</AvatarFallback>
                 </Avatar>
               </div>

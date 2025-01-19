@@ -14,7 +14,9 @@ BodySQL is a healthcare monitoring and management system that built for Fundamen
 
 - BPM Insights: Every 10 minutes, the system collects BPM data and sends AI insights to the user via WhatsApp using Twilio.
 
-## How It Works:
+## Prerequisites
+
+Before you start, make sure you have this hardware and softwares
 
 #### Hardware Components
 
@@ -27,9 +29,11 @@ BodySQL is a healthcare monitoring and management system that built for Fundamen
 
 #### Software Component
 
-- Choreo Account - Sign up for a Choreo account to integrate and deploy services efficiently.
+- Choreo Account - Sign up for a Choreo account(console.choreo.dev) to integrate and deploy services efficiently.
 - Twilio Account - Create a Twilio Account for to to setup schedule task
 - Supabase Database - We are using supabase as a database for this project, soo goo an set up it also
+
+You must understand how to setup softwares on your computer/web. If you do not know how to do this, please ask someone at your office, school, etc. or pay someone to explain this to you. The Maven mailing lists are not the best place to ask for this advice.
 
 #### Install dependencies
 
@@ -44,16 +48,12 @@ You will need to install and configure the following dependencies on your machin
 This repository is structured as follows:
 
 IT1140-P22
-├── docs # Documentation related to the project
-│ ├── proposal  
-│ ├── diagrams  
-│ └── presentation  
-├── hardware # All Arduino and hardware-related files
-│ └── ino  
-├── schedule-tasks # Task scheduling scripts and logic
-│ ├── bpm-reminder # Scripts for BPM (heart rate) reminders
-│ └── medication-reminder # Scripts for medication reminders
-└── webapp # Web application code
+├── docs
+├── ino
+├── schedule-tasks
+│ ├── bpm-reminder
+│ └── medication-reminder
+└── webapp
 
 First forked this project and clone it in to your machine
 
@@ -61,9 +61,11 @@ First forked this project and clone it in to your machine
   git clone https://github.com/<github_username>/IT1140-P22
 ```
 
-1. Web app setup
+now let's go confugure and run each services.
 
-Go to the webapp directory
+1. Web Application
+
+Go to the /webapp directory
 
 ```bash
   cd IT1140-P22/webapp
@@ -85,7 +87,7 @@ window.configs = {
 };
 ```
 
-first you need to create a supabase project, get the apikey,url and create these tables
+first you need to create a new supabase project and obtain the `API KEY` and `SUPABASE URL`. then create these tables, make sure add that `API KEY` and `Supabase URL` to the `config.js` file.
 
 ```SQL
 -- Table: health_conditions
@@ -101,6 +103,8 @@ CREATE TABLE bpm_readings (
     created_at TIMESTAMPTZ DEFAULT NOW(), -- Timestamp of the reading
     bpm INT NOT NULL              -- Beats per minute value
 );
+
+-- add some mock BPM rate to the database to check is it working on the database
 
 -- Table: medications
 CREATE TABLE medications (
@@ -118,9 +122,9 @@ CREATE TABLE medications (
 
 ```
 
-second things is you need to get a API Key from Mistral AI, go to the console.mistral.ai url and obtain a API key/
+after completing the supabase environment you need to obtain a MISTRAL AI `API KEY`, you can get to from their console(console.mistral.ai). add that key also to the `config.js`.
 
-Start the server
+Finally , Start the server running, you can see beautiful dashboard in `http://localhost:5173/`
 
 ```bash
   npm run dev
@@ -128,7 +132,11 @@ Start the server
 
 2. BPM Reminder
 
-Go to the schedule-task/bpm-reminder directory
+in this simple javascript service we're doing, fetch the data from the our database, `bpm_readings` table and send the last 5 data with a AI Insights using whatsapp, to send whatsapp message we use Twilio.
+
+soo you need to create a twilio account and configure your whatsapp account with twilio and obtain `API KEY` `ACC SID` and `Twilio Whatsapp Number`. get some help from perplexity to do this step.
+
+Then. Go to the schedule-task/bpm-reminder directory
 
 ```bash
   cd schedule-task/bpm-reminder directory
@@ -140,11 +148,33 @@ Install dependencies
   npm install
 ```
 
-create a `.env` file and add those values
-`VITE_SUPABASE_URL`
-`VITE_SUPABASE_KEY`
-`VITE_MISTRAL_API_KEY`
+create a `.env` file and add those values we obtain in the Web App part.
+
+```bash
+SUPABASE_URL;
+SUPABASE_KEY;
+MISTRAL_API_KEY;
+TWILIO_ACC_SID;
+TWILIO_AUTH_TOKEN;
+TWILIO_WHATSAPP_NUM;
+```
 
 3. Medication Reminder
 
-do the same steps in 2. BPM Reminder
+This service also same as BPM reminder service,but the function is different, here we fetch the medications data from the database, and if any of the time in that table is match with the current time this send a whatsapp message to the user reminding the medication /w dosage.
+
+do the same step we did in the BPM Reminder service to configure this service also, except the Mistral AI Part.
+
+4. Ino
+   heres our arduino program in, and for this project i used Arduino IDE, So copy the code from the main.ino and pasted in your new sketch in arduino ide and add those API Keys and URLS.
+
+```c++
+const char *ssid = "Your WiFi ID";
+const char *password = "Password";
+
+const char *supabaseUrl = "Supabase URL";
+const char *supabaseKey = "Supabase Anon Key";
+const char *tableName = "bpm_readings";
+```
+
+thats it, and after i got a time to draw the arduino diagram, i will explain how this works.

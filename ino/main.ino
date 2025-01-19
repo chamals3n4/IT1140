@@ -2,8 +2,10 @@
 #include <PulseSensorPlayground.h>
 #include <ESPSupabase.h>
 #include <WiFi.h>
+
 #include <ThreeWire.h>
 #include <RtcDS1302.h>
+
 #include <ArduinoJson.h>
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);

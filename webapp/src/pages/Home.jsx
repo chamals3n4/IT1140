@@ -4,6 +4,7 @@ import { useBpmData } from "@/hooks/useBpmData";
 import { useMedication } from "@/hooks/useMedication";
 import { useState, useEffect } from "react";
 import supabase from "@/config/supabase";
+import mistral from "@/config/mistral";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Database,
@@ -16,7 +17,6 @@ import {
   Layers,
 } from "lucide-react";
 
-import mistral from "../assets/images/icons/mistral.png";
 import nodejs from "../assets/images/icons/nodejs.png";
 import react from "../assets/images/icons/react.png";
 import supabaseLogo from "../assets/images/icons/supabaselogo.png";
@@ -25,6 +25,7 @@ import vite from "../assets/images/icons/vite.png";
 import choreo from "../assets/images/icons/choreo-by-wso2.png";
 import twilio from "../assets/images/icons/twilio.png";
 import tailwind from "../assets/images/icons/tailwind.png";
+import mistralIcon from "../assets/images/icons/mistral.png";
 
 // const activities = [
 //   {
@@ -48,7 +49,7 @@ const techStack = [
   { name: "Supabase", icon: supabaseLogo },
   { name: "Twilio", icon: twilio },
   { name: "Arduino", icon: choreo },
-  { name: "JavaScript", icon: mistral },
+  { name: "JavaScript", icon: mistralIcon },
   { name: "React", icon: nodejs },
   { name: "Tailwind CSS", icon: shadcn },
   { name: "shadcn UI", icon: vite },
@@ -59,11 +60,6 @@ const techStack = [
 export default function Home() {
   const bpmData = useBpmData();
   const routineData = useMedication();
-
-  const now = new Date();
-  const formattedDate = now.toISOString().split("T")[0];
-  const formattedTime = now.toTimeString().split(" ")[0];
-  const formattedDateTime = `${formattedDate} ${formattedTime}`;
   const stats = [
     {
       name: "Latest Pulse Reading",
@@ -92,7 +88,7 @@ export default function Home() {
     },
     {
       name: "Data and Time",
-      value: formattedDateTime,
+      value: "02:17",
       change: "+20.1% from last month",
     },
   ];
@@ -154,7 +150,11 @@ export default function Home() {
       </Card>
       <p className="text-md">
         The source code is available on{" "}
-        <a href="https://example.com" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://github.com/chamals3n4/IT1140-P22"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span className="underline">GitHub</span>
         </a>
       </p>

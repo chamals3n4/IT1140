@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 
+import chillguy from "../assets/images/chillguy.jpg";
+
 const notifications = [
   {
     title: "Email notifications",
@@ -34,7 +36,7 @@ export default function Settings() {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl" />
           <div className="relative flex flex-col items-center justify-center space-y-4 p-8 text-center">
             <Avatar className="h-29 w-28  shadow-xl">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarImage src={chillguy} alt="@shadcn" />
               <AvatarFallback>
                 <User className="h-14 w-14" />
               </AvatarFallback>
