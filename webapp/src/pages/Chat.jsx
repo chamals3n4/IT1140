@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,11 +9,31 @@ import { Bot, Send, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import mistral from "@/config/mistral";
 import chillguy from "../assets/images/chillguy.jpg";
+import supabase from "@/config/supabase";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
+  const [bpm, setBpm] = useState([]);
   const [input, setInput] = useState("");
   const [isFirstMessage, setIsFirstMessage] = useState(true);
+
+  useEffect(() => {
+    async function fetchMedications() {
+      try {
+        const { data, error } = await supabase.from("bpm_readings").select("*");
+
+        if (error) {
+          console.error("Error fetching data:", error.message);
+        } else {
+          setBpm(data || []);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    }
+
+    fetchMedications();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
