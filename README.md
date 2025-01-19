@@ -47,13 +47,14 @@ You will need to install and configure the following dependencies on your machin
 
 This repository is structured as follows:
 
-IT1140-P22/
-docs/
-ino/
-schedule-tasks/
-bpm-reminder/
-medication-reminder/
-webapp/
+| Directory                            | Scope                       | Description                                                               |
+| ------------------------------------ | --------------------------- | ------------------------------------------------------------------------- |
+| `docs`                               | Documentation               | Contains all documentation files, including diagrams and project details. |
+| `ino`                                | Arduino Code                | Includes Arduino `.ino` files for the ESP32 and related hardware.         |
+| `schedule-tasks`                     | Scheduled Services          | Holds services for reminders and BPM data insights.                       |
+| `schedule-tasks/bpm-reminder`        | BPM Reminder Service        | Sends BPM readings and AI-generated insights via WhatsApp using Twilio.   |
+| `schedule-tasks/medication-reminder` | Medication Reminder Service | Sends medication reminders with dosages via WhatsApp using Twilio.        |
+| `webapp`                             | Web Application             | Frontend application to display BPM data, insights, and manage routines.  |
 
 First forked this project and clone it in to your machine
 
