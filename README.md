@@ -47,13 +47,13 @@ You will need to install and configure the following dependencies on your machin
 
 This repository is structured as follows:
 
-IT1140-P22
-├── docs
-├── ino
-├── schedule-tasks
-│ ├── bpm-reminder
-│ └── medication-reminder
-└── webapp
+IT1140-P22/
+docs/
+ino/
+schedule-tasks/
+bpm-reminder/
+medication-reminder/
+webapp/
 
 First forked this project and clone it in to your machine
 
